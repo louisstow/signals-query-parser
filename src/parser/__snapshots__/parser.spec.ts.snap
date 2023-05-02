@@ -1,0 +1,281 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error handling 1`] = `
+"thing
+^"
+`;
+
+exports[`Error handling 2`] = `
+"severity >
+          ^"
+`;
+
+exports[`Error handling 3`] = `
+"severity > \\"test\\"
+            ^"
+`;
+
+exports[`Error handling 4`] = `
+"severity > x
+           ^"
+`;
+
+exports[`Error handling 5`] = `
+"description ~
+             ^"
+`;
+
+exports[`Error handling 6`] = `
+"description # \\"test\\"
+            ^"
+`;
+
+exports[`Error handling 7`] = `
+"software in x = , y > 2
+                ^"
+`;
+
+exports[`Error handling 8`] = `
+"software in x % 2, y > 2
+              ^"
+`;
+
+exports[`Error handling 9`] = `
+"software in |
+            ^"
+`;
+
+exports[`Error handling 10`] = `
+"tion\\" | software in |
+                    ^"
+`;
+
+exports[`QueryStream 1`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [
+        Object {
+          "name": "test",
+          "version": Array [
+            Object {
+              "op": "eq",
+              "value": "1.2",
+            },
+          ],
+        },
+        Object {
+          "name": "another",
+          "version": Array [
+            Object {
+              "op": "gt",
+              "value": "5",
+            },
+            Object {
+              "op": "lt",
+              "value": "10",
+            },
+          ],
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`QueryStream 2`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [
+        Object {
+          "name": "test",
+          "version": Array [],
+        },
+        Object {
+          "name": "another",
+          "version": Array [],
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`QueryStream 3`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [
+        Object {
+          "name": "test",
+          "version": Array [
+            Object {
+              "op": "eq",
+              "value": "1.2",
+            },
+          ],
+        },
+        Object {
+          "name": "another",
+          "version": Array [
+            Object {
+              "op": "gt",
+              "value": "5",
+            },
+            Object {
+              "op": "lt",
+              "value": "10",
+            },
+          ],
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`QueryStream 4`] = `
+Array [
+  Object {
+    "type": "match",
+    "value": Object {
+      "field": "description",
+      "query": "my query",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 5`] = `
+Array [
+  Object {
+    "type": "in",
+    "value": Object {
+      "field": "collectors",
+      "query": Array [
+        "a:thing",
+        "c:another",
+      ],
+    },
+  },
+]
+`;
+
+exports[`QueryStream 6`] = `
+Array [
+  Object {
+    "type": "range",
+    "value": Object {
+      "field": "severity",
+      "query": Object {
+        "gt": 2,
+        "lt": 5,
+      },
+    },
+  },
+]
+`;
+
+exports[`QueryStream 7`] = `
+Array [
+  Object {
+    "type": "exact",
+    "value": Object {
+      "field": "id",
+      "query": "CVE-2020-123",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 8`] = `
+Array [
+  Object {
+    "type": "exact",
+    "value": Object {
+      "field": "id",
+      "query": "CVE-2020-123",
+    },
+  },
+  Object {
+    "type": "range",
+    "value": Object {
+      "field": "severity",
+      "query": Object {
+        "gt": 4,
+      },
+    },
+  },
+  Object {
+    "type": "match",
+    "value": Object {
+      "field": "description",
+      "query": "Apple",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 9`] = `
+Array [
+  Object {
+    "type": "match",
+    "value": Object {
+      "field": "aggregate",
+      "query": "CVE-2020-123",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 10`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [],
+      "softwareList": "@software_list",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 11`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [],
+      "softwareList": "@software_list",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 12`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [],
+      "softwareList": "@software_list",
+    },
+  },
+  Object {
+    "type": "filter",
+    "value": Object {
+      "filter": "THING",
+    },
+  },
+]
+`;
