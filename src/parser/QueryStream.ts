@@ -210,8 +210,11 @@ class QueryStream {
 
     const fuzzy = isValidMatchOp(op);
 
+    let hasOpenParen = false;
+
     if (isOpenParen(this.tstream.peek())) {
       this.tstream.next();
+      hasOpenParen = true;
     }
 
     if (isText(this.tstream.peek())) {
@@ -234,6 +237,8 @@ class QueryStream {
       const software = this.readSoftwareIn();
       if (isCloseParen(this.tstream.peek())) {
         this.tstream.next();
+      } else if (hasOpenParen) {
+        throw this.createParserError(`Expected closing parenthesis`);
       }
 
       return {
@@ -272,6 +277,7 @@ class QueryStream {
   readIn(field: string) {
     const query: string[] = [];
     let peek: Token | null;
+    let hasOpenParen = false;
 
     while (
       !this.tstream.eof() &&
@@ -282,6 +288,11 @@ class QueryStream {
       this.readWhile(isComma);
 
       const t = this.tstream.next();
+
+      if (isOpenParen(t)) {
+        hasOpenParen = true;
+      }
+
       if (isText(t)) {
         query.push(t.value);
       }
@@ -289,6 +300,8 @@ class QueryStream {
 
     if (isCloseParen(this.tstream.peek())) {
       this.tstream.next();
+    } else if (hasOpenParen) {
+      throw this.createParserError(`Expected closing parenthesis`);
     }
 
     return {
@@ -454,10 +467,19 @@ class QueryStream {
   parse() {
     const q: any[] = [];
     while (!this.tstream.eof()) {
-      const queryItem = this.parseToken();
+      try {
+        const queryItem = this.parseToken();
 
-      if (queryItem) {
-        q.push(queryItem);
+        if (queryItem) {
+          q.push(queryItem);
+        }
+      } catch (err) {
+        if (err instanceof ParserError) {
+          throw err;
+        } else {
+          const error = err as Error;
+          throw this.createParserError(error.message);
+        }
       }
     }
 

@@ -28,8 +28,17 @@ class BaseTokenStream {
     return s;
   }
 
-  readEscapedString(keepEscape = false) {
+  readEscapedString(
+    {
+      keepEscape,
+      expectClosingQuote,
+    }: { keepEscape?: boolean; expectClosingQuote?: boolean } = {
+      keepEscape: false,
+      expectClosingQuote: true,
+    }
+  ) {
     let escaped = false;
+    let closed = false;
     let s = "";
 
     while (!this.istream.eof()) {
@@ -42,10 +51,15 @@ class BaseTokenStream {
       } else if (c === "\\") {
         escaped = true;
       } else if (c === '"') {
+        closed = true;
         break;
       } else {
         s += c;
       }
+    }
+
+    if (!closed && expectClosingQuote) {
+      throw new Error("Unclosed string");
     }
 
     return s;

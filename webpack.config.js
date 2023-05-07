@@ -14,13 +14,15 @@ module.exports = {
       },
     ],
   },
-  // externals: ["securia-lib"],
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
+    library: {
+      type: "umd",
+    },
   },
   optimization: {
     minimize: false,

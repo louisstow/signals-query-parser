@@ -1,14 +1,26 @@
-import { InputStream } from "../../../utils/InputStream";
+import { InputStream } from "../InputStream";
 import { TokenStream } from "./TokenStream";
 import { ParserError, QueryStream } from "./QueryStream";
 
-import { parseQuery } from "./query";
+import { parseQuery as originalParseQuery } from "./query";
+import { Token } from "../BaseTokenStream";
+
+const parseQuery = (query: string) => {
+  return originalParseQuery(query, [
+    "software",
+    "softwareList",
+    "severity",
+    "description",
+    "collectors",
+    "id",
+  ]);
+};
 
 describe("TokenStream", () => {
   const parse = (s: string) => {
     const inputStream = new InputStream(s);
     const tokenStream = new TokenStream(inputStream);
-    const tokens = [];
+    const tokens: Token[] = [];
 
     while (!tokenStream.eof()) {
       const t = tokenStream.next();
@@ -179,5 +191,44 @@ test("Error handling", () => {
     expect(e.example).toMatchSnapshot();
   }
 
+  try {
+    parseQuery(`collectors in (a, ")`);
+  } catch (err) {
+    const e = err as ParserError;
+    expect(e.message).toMatch(/Unclosed string/);
+    expect(e.columnNumber).toBe(20);
+    expect(e.example).toMatchSnapshot();
+  }
+
+  try {
+    parseQuery(`collectors in (a, b`);
+  } catch (err) {
+    const e = err as ParserError;
+    expect(e.message).toMatch(/Expected closing parenthesis/);
+    expect(e.columnNumber).toBe(19);
+    expect(e.example).toMatchSnapshot();
+  }
+
+  try {
+    parseQuery(`software in (x = 1, y > 2`);
+  } catch (err) {
+    const e = err as ParserError;
+    expect(e.message).toMatch(/Expected closing parenthesis/);
+    expect(e.columnNumber).toBe(25);
+    expect(e.example).toMatchSnapshot();
+  }
+
   expect.hasAssertions();
+});
+
+describe("Misc tests", () => {
+  // expect(parseQuery(`collectors in (a, ")`)).toEqual([
+  //   {
+  //     type: "in",
+  //     value: {
+  //       field: "collectors",
+  //       query: ["a"],
+  //     },
+  //   },
+  // ]);
 });

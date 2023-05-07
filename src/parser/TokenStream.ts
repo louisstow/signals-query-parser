@@ -20,11 +20,11 @@ class TokenStream extends BaseTokenStream {
     super(input);
   }
 
-  readString() {
+  readString(expectClosingQuote = true) {
     return {
       pos: this.istream.pos,
       type: "string",
-      value: this.readEscapedString(),
+      value: this.readEscapedString({ expectClosingQuote }),
     };
   }
 
@@ -91,7 +91,7 @@ class TokenStream extends BaseTokenStream {
 
     if (c === QUOTE) {
       this.istream.next();
-      return this.readString();
+      return this.readString(true);
     }
 
     // if (isNumeric(c)) {

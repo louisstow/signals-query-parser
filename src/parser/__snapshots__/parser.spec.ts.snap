@@ -50,6 +50,21 @@ exports[`Error handling 10`] = `
                     ^"
 `;
 
+exports[`Error handling 11`] = `
+"collectors in (a, \\")
+                    ^"
+`;
+
+exports[`Error handling 12`] = `
+"collectors in (a, b
+                   ^"
+`;
+
+exports[`Error handling 13`] = `
+"are in (x = 1, y > 2
+                    ^"
+`;
+
 exports[`QueryStream 1`] = `
 Array [
   Object {
