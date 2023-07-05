@@ -1,6 +1,6 @@
 {
   "name": "@signals.to/query-parser",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Package to parse signals queries",
   "main": "dist/index.js",
   "scripts": {
