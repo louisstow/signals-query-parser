@@ -109,6 +109,41 @@ Array [
       "software": Array [
         Object {
           "name": "test",
+          "version": Array [
+            Object {
+              "op": "eq",
+              "value": "1.2",
+            },
+          ],
+        },
+        Object {
+          "name": "another",
+          "version": Array [
+            Object {
+              "op": "gt",
+              "value": "5",
+            },
+            Object {
+              "op": "lt",
+              "value": "10",
+            },
+          ],
+        },
+      ],
+    },
+  },
+]
+`;
+
+exports[`QueryStream 3`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [
+        Object {
+          "name": "test",
           "version": Array [],
         },
         Object {
@@ -121,7 +156,7 @@ Array [
 ]
 `;
 
-exports[`QueryStream 3`] = `
+exports[`QueryStream 4`] = `
 Array [
   Object {
     "type": "software",
@@ -156,7 +191,7 @@ Array [
 ]
 `;
 
-exports[`QueryStream 4`] = `
+exports[`QueryStream 5`] = `
 Array [
   Object {
     "type": "match",
@@ -168,7 +203,7 @@ Array [
 ]
 `;
 
-exports[`QueryStream 5`] = `
+exports[`QueryStream 6`] = `
 Array [
   Object {
     "type": "in",
@@ -183,7 +218,7 @@ Array [
 ]
 `;
 
-exports[`QueryStream 6`] = `
+exports[`QueryStream 7`] = `
 Array [
   Object {
     "type": "range",
@@ -191,14 +226,13 @@ Array [
       "field": "severity",
       "query": Object {
         "gt": 2,
-        "lt": 5,
       },
     },
   },
 ]
 `;
 
-exports[`QueryStream 7`] = `
+exports[`QueryStream 8`] = `
 Array [
   Object {
     "type": "exact",
@@ -210,7 +244,7 @@ Array [
 ]
 `;
 
-exports[`QueryStream 8`] = `
+exports[`QueryStream 9`] = `
 Array [
   Object {
     "type": "exact",
@@ -238,26 +272,13 @@ Array [
 ]
 `;
 
-exports[`QueryStream 9`] = `
+exports[`QueryStream 10`] = `
 Array [
   Object {
     "type": "match",
     "value": Object {
       "field": "aggregate",
       "query": "CVE-2020-123",
-    },
-  },
-]
-`;
-
-exports[`QueryStream 10`] = `
-Array [
-  Object {
-    "type": "software",
-    "value": Object {
-      "fuzzy": false,
-      "software": Array [],
-      "softwareList": "@software_list",
     },
   },
 ]
@@ -277,6 +298,19 @@ Array [
 `;
 
 exports[`QueryStream 12`] = `
+Array [
+  Object {
+    "type": "software",
+    "value": Object {
+      "fuzzy": false,
+      "software": Array [],
+      "softwareList": "@software_list",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 13`] = `
 Array [
   Object {
     "type": "software",

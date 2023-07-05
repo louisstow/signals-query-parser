@@ -44,18 +44,30 @@ describe("TokenStream", () => {
       { pos: 26, type: "closeParen", value: ")" },
     ]);
 
+    expect(parse(`software in ("test" =1.2>3)`)).toEqual([
+      { pos: 0, type: "ident", value: "software" },
+      { pos: 9, type: "ident", value: "in" },
+      { pos: 12, type: "openParen", value: "(" },
+      { pos: 14, type: "string", value: "test" },
+      { pos: 20, type: "operator", value: "=" },
+      { pos: 21, type: "ident", value: "1.2" },
+      { pos: 24, type: "operator", value: ">" },
+      { pos: 25, type: "ident", value: "3" },
+      { pos: 26, type: "closeParen", value: ")" },
+    ]);
+
     expect(parse(`software in (test = 1.2, another > 5 < 10)`)).toStrictEqual([
       { pos: 0, type: "ident", value: "software" },
       { pos: 9, type: "ident", value: "in" },
       { pos: 12, type: "openParen", value: "(" },
       { pos: 13, type: "ident", value: "test" },
-      { pos: 18, type: "ident", value: "=" },
+      { pos: 18, type: "operator", value: "=" },
       { pos: 20, type: "ident", value: "1.2" },
       { pos: 23, type: "comma", value: "," },
       { pos: 25, type: "ident", value: "another" },
-      { pos: 33, type: "ident", value: ">" },
+      { pos: 33, type: "operator", value: ">" },
       { pos: 35, type: "ident", value: "5" },
-      { pos: 37, type: "ident", value: "<" },
+      { pos: 37, type: "operator", value: "<" },
       { pos: 39, type: "ident", value: "10" },
       { pos: 41, type: "closeParen", value: ")" },
     ]);
@@ -65,6 +77,10 @@ describe("TokenStream", () => {
 test("QueryStream", () => {
   expect(
     parseQuery(`software in (test = 1.2, another > 5 < 10)`)
+  ).toMatchSnapshot();
+
+  expect(
+    parseQuery(`software in (test =1.2, another >5<10)`)
   ).toMatchSnapshot();
 
   expect(parseQuery(`software in (test, another)`)).toMatchSnapshot();

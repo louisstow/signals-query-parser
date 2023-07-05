@@ -9,6 +9,7 @@ const isSep = (t: Token | null) => isPipe(t) || isComma(t) || isCloseParen(t);
 const isIdent = (t: Token | null): t is Token => t?.type === "ident";
 const isText = (t: Token | null): t is Token =>
   t?.type === "string" || t?.type === "ident";
+const isOperator = (t: Token | null): t is Token => t?.type === "operator";
 
 const isIdentNoGuard = (t: Token | null) => t?.type === "ident";
 const isTextNoGuard = (t: Token | null) =>
@@ -199,7 +200,7 @@ class QueryStream {
   readSoftwareQuery() {
     const fn = this.tstream.next();
 
-    if (!isText(fn)) {
+    if (!isText(fn) && !isOperator(fn)) {
       throw this.createParserError(`Unexpected operator`);
     }
 
@@ -412,7 +413,7 @@ class QueryStream {
 
     const fn = this.tstream.next();
 
-    if (isIdent(fn)) {
+    if (isIdent(fn) || isOperator(fn)) {
       if (fn.value.toLowerCase() === "in") {
         return this.readIn(field.value);
       }

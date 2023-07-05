@@ -13,7 +13,8 @@ const isSep = (c: string) =>
 const isText = (c: string) => !isNumeric(c);
 const isWhitespace = (c: string) =>
   c === " " || c === "\t" || c === "\n" || c === "\r";
-const isIdent = (c: string) => !isWhitespace(c) && !isSep(c);
+const isOperator = (c: string) => c === "=" || c === ">" || c === "<";
+const isIdent = (c: string) => !isWhitespace(c) && !isSep(c) && !isOperator(c);
 
 class TokenStream extends BaseTokenStream {
   constructor(input: InputStream) {
@@ -33,6 +34,14 @@ class TokenStream extends BaseTokenStream {
       pos: this.istream.pos,
       type: "number",
       value: this.readWhile(isNumeric),
+    };
+  }
+
+  readOperator() {
+    return {
+      pos: this.istream.pos,
+      type: "operator",
+      value: this.readWhile(isOperator),
     };
   }
 
@@ -92,6 +101,10 @@ class TokenStream extends BaseTokenStream {
     if (c === QUOTE) {
       this.istream.next();
       return this.readString(true);
+    }
+
+    if (isOperator(c)) {
+      return this.readOperator();
     }
 
     // if (isNumeric(c)) {
