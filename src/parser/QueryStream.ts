@@ -344,7 +344,7 @@ class QueryStream {
       !isPipe(peek)
     ) {
       const t = this.tstream.next();
-      const validOp = isText(t) && getValidOp(t.value);
+      const validOp = (isText(t) || isOperator(t)) && getValidOp(t.value);
 
       if (validOp) {
         const v = this.tstream.next();

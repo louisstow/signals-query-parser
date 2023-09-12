@@ -226,6 +226,7 @@ Array [
       "field": "severity",
       "query": Object {
         "gt": 2,
+        "lt": 5,
       },
     },
   },

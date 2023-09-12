@@ -1,10 +1,11 @@
 {
   "name": "@signals.to/query-parser",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "description": "Package to parse signals queries",
   "main": "dist/index.js",
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "test": "jest"
   },
   "author": "Louis Stowasser",
   "license": "ISC",
