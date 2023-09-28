@@ -13,7 +13,8 @@ const isSep = (c: string) =>
 const isText = (c: string) => !isNumeric(c);
 const isWhitespace = (c: string) =>
   c === " " || c === "\t" || c === "\n" || c === "\r";
-const isOperator = (c: string) => c === "=" || c === ">" || c === "<";
+const isOperator = (c: string) =>
+  c === "=" || c === ">" || c === "<" || c === "!";
 const isIdent = (c: string) => !isWhitespace(c) && !isSep(c) && !isOperator(c);
 
 class TokenStream extends BaseTokenStream {

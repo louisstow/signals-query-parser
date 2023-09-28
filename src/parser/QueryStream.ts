@@ -275,7 +275,7 @@ class QueryStream {
     }
   }
 
-  readIn(field: string) {
+  readIn(field: string, negated?: boolean) {
     const query: string[] = [];
     let peek: Token | null;
     let hasOpenParen = false;
@@ -310,6 +310,7 @@ class QueryStream {
       value: {
         field,
         query,
+        negated: negated ? true : undefined,
       },
     };
   }
@@ -392,6 +393,16 @@ class QueryStream {
     };
   }
 
+  readNegated() {
+    const token = this.tstream.peek();
+    if (isIdent(token) && token.value == "not") {
+      this.tstream.next();
+      return true;
+    }
+
+    return false;
+  }
+
   readQuery() {
     const field = this.tstream.next();
 
@@ -411,11 +422,12 @@ class QueryStream {
       throw this.createParserError(`Invalid field '${field.value}'`, field.pos);
     }
 
+    const negated = this.readNegated();
     const fn = this.tstream.next();
 
     if (isIdent(fn) || isOperator(fn)) {
       if (fn.value.toLowerCase() === "in") {
-        return this.readIn(field.value);
+        return this.readIn(field.value, negated);
       }
 
       if (isValidMatchOp(fn.value)) {

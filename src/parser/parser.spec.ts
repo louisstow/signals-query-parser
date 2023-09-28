@@ -13,6 +13,7 @@ const parseQuery = (query: string) => {
     "description",
     "collectors",
     "id",
+    "tags",
   ]);
 };
 
@@ -112,6 +113,10 @@ test("QueryStream", () => {
   expect(
     parseQuery(`software = @software_list | filter THING`)
   ).toMatchSnapshot();
+
+  expect(parseQuery(`tags in ("a", "b")`)).toMatchSnapshot();
+
+  expect(parseQuery(`tags not in ("a", "b")`)).toMatchSnapshot();
 });
 
 test("Error handling", () => {

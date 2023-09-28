@@ -209,6 +209,7 @@ Array [
     "type": "in",
     "value": Object {
       "field": "collectors",
+      "negated": undefined,
       "query": Array [
         "a:thing",
         "c:another",
@@ -325,6 +326,38 @@ Array [
     "type": "filter",
     "value": Object {
       "filter": "THING",
+    },
+  },
+]
+`;
+
+exports[`QueryStream 14`] = `
+Array [
+  Object {
+    "type": "in",
+    "value": Object {
+      "field": "tags",
+      "negated": undefined,
+      "query": Array [
+        "a",
+        "b",
+      ],
+    },
+  },
+]
+`;
+
+exports[`QueryStream 15`] = `
+Array [
+  Object {
+    "type": "in",
+    "value": Object {
+      "field": "tags",
+      "negated": true,
+      "query": Array [
+        "a",
+        "b",
+      ],
     },
   },
 ]

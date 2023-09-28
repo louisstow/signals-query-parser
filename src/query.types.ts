@@ -15,6 +15,7 @@ export interface InQuery {
   value: {
     field: string;
     query: string[];
+    negated?: boolean;
   };
 }
 
