@@ -119,6 +119,12 @@ test("QueryStream", () => {
   expect(parseQuery(`tags not in ("a", "b")`)).toMatchSnapshot();
 });
 
+test("Grouping", () => {
+  expect(
+    parseQuery(`tags in ("vendor/microsoft") | group tags`)
+  ).toMatchSnapshot();
+});
+
 test("Error handling", () => {
   try {
     parseQuery(`thing`);

@@ -51,10 +51,18 @@ export interface FilterQuery {
   };
 }
 
+export interface GroupQuery {
+  type: "group";
+  value: {
+    field: string;
+  };
+}
+
 export type Query =
   | SoftwareQuery
   | ExactQuery
   | MatchQuery
   | RangeQuery
   | InQuery
-  | FilterQuery;
+  | FilterQuery
+  | GroupQuery;

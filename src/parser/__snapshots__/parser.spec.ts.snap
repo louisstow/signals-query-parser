@@ -65,6 +65,27 @@ exports[`Error handling 13`] = `
                     ^"
 `;
 
+exports[`Grouping 1`] = `
+Array [
+  Object {
+    "type": "in",
+    "value": Object {
+      "field": "tags",
+      "negated": undefined,
+      "query": Array [
+        "vendor/microsoft",
+      ],
+    },
+  },
+  Object {
+    "type": "group",
+    "value": Object {
+      "field": "tags",
+    },
+  },
+]
+`;
+
 exports[`QueryStream 1`] = `
 Array [
   Object {

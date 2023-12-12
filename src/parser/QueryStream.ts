@@ -393,6 +393,20 @@ class QueryStream {
     };
   }
 
+  readGroup() {
+    const group = this.tstream.next();
+    if (!group) {
+      return null;
+    }
+
+    return {
+      type: "group",
+      value: {
+        field: group.value,
+      },
+    };
+  }
+
   readNegated() {
     const token = this.tstream.peek();
     if (isIdent(token) && token.value == "not") {
@@ -412,6 +426,10 @@ class QueryStream {
 
     if (field.type === "ident" && field.value === "filter") {
       return this.readFilter();
+    }
+
+    if (field.type === "ident" && field.value === "group") {
+      return this.readGroup();
     }
 
     if (field.type === "ident" && field.value === "software") {
